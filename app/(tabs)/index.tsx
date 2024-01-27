@@ -1,12 +1,33 @@
-import React from "react";
-import { Pressable, StyleSheet } from "react-native";
 
+import React, { useState } from "react";
+import { StatusBar } from "expo-status-bar";
+import { Platform, Pressable, StyleSheet, TouchableOpacity } from "react-native";
 import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
-import { Link } from "expo-router";
+import { Camera, CameraType } from "expo-camera";
 import { Button } from "react-native-paper";
+import { Link } from "expo-router";
 
 export default function TabOneScreen() {
+  const [type, setType] = useState(CameraType.back);
+  const [permission, requestPermission] = Camera.useCameraPermissions();
+  
+  if (!permission){
+    return <View />;
+  }
+  if (!permission?.granted) {
+    return (
+      <View style={styles.container}>
+        <Text>No access to camera</Text>
+        <TouchableOpacity onPress={requestPermission} style={styles.button}>
+          <Text>Grant access to camera</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+  function toggleCameraType() {
+    setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
+  }
   return (
     <>
     <View style={styles.container}>
@@ -17,14 +38,12 @@ export default function TabOneScreen() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <Button icon="camera" mode="contained" onPress={() => console.log('Pressed')}>
+      <Button icon="camera" mode="contained" onPress={() => {
+        console.log('Pressed')
+        toggleCameraType()
+      }}>
         Press me
       </Button>
-        <Link href="/" replace >
-      <Pressable>
-        <Text>Home</Text>
-      </Pressable>
-    </Link>
       {/* <EditScreenInfo path="app/(tabs)/index.tsx thing" /> */}
     </View>
     </>
