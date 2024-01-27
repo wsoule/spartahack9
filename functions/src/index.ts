@@ -11,7 +11,7 @@ const visionClient = new vision.ImageAnnotatorClient();
 const bucketName = 'wastewell-8a42f-vision';
 
 export const imageTagger = functions.firestore.document('photos/{document}')
-  .onCreate( async event => {
+  .onCreate( async (event: { data: any; }) => {
     // File data
     const object = event.data;
     const filePath = object.name;
