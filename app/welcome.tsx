@@ -1,21 +1,30 @@
 import React from 'react';
-import { Alert, Button, Text, View, StyleSheet, Image } from 'react-native';
+import { Alert, Button, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const WelcomePage: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to WasteWell!</Text>
-      <Text style={styles.subtitle}>Please sign in or sign up to get started.</Text>
+      <Text style={styles.subtitle}>WasteWell's mission is to make recycling easy and fun. We aim to educate and engage users in sustainable practices through a simple, interactive app that identifies recyclable items with just a photo. Join us in our journey to inspire a greener lifestyle, one piece of trash at a time.</Text>
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={require('@/assets/images/recycle.png')}/>
       </View>
-      <Button
-        title='Sign In'
+      <TouchableOpacity
+      style={styles.signUpButton}
         onPress={() => {
-          Alert.alert('You tapped the button!');
+          Alert.alert('You tapped the sign up button!');
         }}
-        color='#007BFF' // You can choose a color that matches your app theme
-      />
+      >
+        <Text style={styles.buttonText}>Join Now</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+      style={styles.loginButton}
+        onPress={() => {
+          Alert.alert('You tapped the SIGN IN button!');
+        }}
+      >
+        <Text style={styles.buttonText}>Sign In</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -29,7 +38,6 @@ const styles = StyleSheet.create({
     height: '100%'
   },
   title: {
-    top: -200,
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
@@ -44,7 +52,6 @@ const styles = StyleSheet.create({
   imageContainer: {
     backgroundColor: '#607D8B', // Replace with your dark color
     borderRadius: 100, // Adjust for blob-like shape
-    borderBottomEndRadius: 20, // To cut the top-right border
     padding: 50, // Adjust as needed
     alignItems: 'center',
     justifyContent: 'center'
@@ -53,6 +60,32 @@ const styles = StyleSheet.create({
     width: 200, // Adjust as per your requirement
     height: 200, // Adjust as per your requirement
     resizeMode: 'cover', // or 'contain' based on your preference
+  },
+  loginButton: {
+    marginTop: 30,
+    backgroundColor: '#4682b4',
+    borderRadius: 10,
+    padding: 10,
+    elevation: 2,
+    width: '80%',
+    height: 50,
+    justifyContent: 'center'
+  },
+  signUpButton: {
+    marginTop: 30,
+    backgroundColor: '#388E3C',
+    borderRadius: 10,
+    padding: 10,
+    elevation: 2,
+    width: '80%',
+    height: 50,
+    justifyContent: 'center'
+  },
+  buttonText: {
+    textAlign: 'center',
+    color: '#FFFFFF', // Text color
+    fontSize: 20,
+    fontWeight: 'bold',
   }
 });
 
