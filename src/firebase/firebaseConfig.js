@@ -21,6 +21,9 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export default app;
 
+export const db = firebase.firestore();
+export const storage = firebase.storage();
+
 // Optionally import the services that you want to use
 // import {...} from "firebase/auth";
 // import {...} from "firebase/database";

@@ -1,8 +1,8 @@
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
+import EditScreenInfo from "@/src/components/EditScreenInfo";
+import { Text, View } from "@/src/components/Themed";
 import { Link } from "expo-router";
 import { Button } from "react-native-paper";
 
