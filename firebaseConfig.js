@@ -1,4 +1,5 @@
 // Import the functions you need from the SDKs you need
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -9,6 +10,7 @@ import { getAnalytics } from "firebase/analytics";
 const firebaseConfig = {
   apiKey: "AIzaSyB6DYEaHHA6cJjwpGGTbkbnnKxxWAmD6_I",
   authDomain: "wastewell-8a42f.firebaseapp.com",
+  databaseURL: "https://wastewell-8a42f-default-rtdb.firebaseio.com",
   projectId: "wastewell-8a42f",
   storageBucket: "wastewell-8a42f.appspot.com",
   messagingSenderId: "453658463481",
