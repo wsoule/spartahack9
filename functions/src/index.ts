@@ -10,10 +10,6 @@ import { getFirestore } from "firebase-admin/firestore";
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
 
-<<<<<<< HEAD
-<<<<<<< HEAD:functions/src/index.ts
-=======
-
 // Firebase
 import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
@@ -26,16 +22,12 @@ const visionClient = new vision.ImageAnnotatorClient();
 // Bucket name for Cloud function invocation
 const bucketName = 'wastewell-8a42f-vision';
 
->>>>>>> 80f55f2 (merge conflict solved -- keep both)
 export const imageTagger = functions.firestore.document('photos/{document}')
   .onCreate( async (event: { data: any; }) => {
     // File data
     const object = event.data;
     const filePath = object.name;
-<<<<<<< HEAD
-=======
-=======
-
+    
     // Location of file saved in bucket
     const imageUri = `gs://${bucketName}/${filePath}`;
 
@@ -55,12 +47,10 @@ export const imageTagger = functions.firestore.document('photos/{document}')
   }
 );
 
->>>>>>> 80f55f2 (merge conflict solved -- keep both)
 export const helloWorld = onRequest((request, response) => {
   logger.info("Hello logs!", {structuredData: true});
   response.send("Hello from Firebase!");
 });
->>>>>>> 9fb4e7b (add firebase hello world):src/functions/src/index.ts
 
 exports.addMessage = onRequest(async (req, res) => {
   const original = req.query.text;
