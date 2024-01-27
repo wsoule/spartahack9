@@ -31,70 +31,43 @@ const WelcomePage: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-<<<<<<< HEAD
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-<<<<<<< HEAD
     backgroundColor: "#F5F5F5", // A light grey background
     height: "100%",
-=======
-    backgroundColor: '#F5F5F5', // A light grey background
-    height: '100%',
-    
->>>>>>> e3a6205 (make welcome look better)
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
     color: "#388E3C", // Darker text for better readability
-=======
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
     backgroundColor: '#F5F5F5', // A light grey background
     height: '100%',
-    
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#388E3C', // Darker text for better readability
->>>>>>> 0c80e50 (unbreaking...)
   },
   subtitle: {
     fontSize: 18,
     marginBottom: 20,
-<<<<<<< HEAD
     textAlign: "center",
     color: "#555", // Slightly lighter text for the subtitle
   },
   imageContainer: {
     backgroundColor: "#607D8B", // Replace with your dark color
     borderRadius: 100, // Adjust for blob-like shape
-<<<<<<< HEAD
     padding: 50, // Adjust as needed
     alignItems: "center",
     justifyContent: "center",
   },
   image: {
-    width: 200, // Adjust as per your requirement
-    height: 200, // Adjust as per your requirement
     resizeMode: "cover", // or 'contain' based on your preference
-=======
     padding: 10, // Adjust as needed
     alignItems: 'center',
     justifyContent: 'center',
     height: '30%', // Change as per your requirement
     width: '70%'
-  },
-  image: {
-    width: '100%', // Adjust as per your requirement
-    height: '100%', // Adjust as per your requirement
-    resizeMode: 'contain', // or 'contain' based on your preference
->>>>>>> e3a6205 (make welcome look better)
   },
   loginButton: {
     marginTop: 30,
@@ -118,55 +91,10 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: "center",
-    color: "#FFFFFF", // Text color
     fontSize: 20,
     fontWeight: "bold",
-  },
-=======
-    textAlign: 'center',
     color: '#555', // Slightly lighter text for the subtitle
-  },
-  imageContainer: {
-    backgroundColor: '#607D8B', // Replace with your dark color
-    borderRadius: 100, // Adjust for blob-like shape
-    padding: 10, // Adjust as needed
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '30%', // Change as per your requirement
-    width: '70%'
-  },
-  image: {
-    width: '100%', // Adjust as per your requirement
-    height: '100%', // Adjust as per your requirement
-    resizeMode: 'contain', // or 'contain' based on your preference
-  },
-  loginButton: {
-    marginTop: 30,
-    backgroundColor: '#4682b4',
-    borderRadius: 10,
-    padding: 10,
-    elevation: 2,
-    width: '80%',
-    height: 50,
-    justifyContent: 'center'
-  },
-  signUpButton: {
-    marginTop: 30,
-    backgroundColor: '#388E3C',
-    borderRadius: 10,
-    padding: 10,
-    elevation: 2,
-    width: '80%',
-    height: 50,
-    justifyContent: 'center'
-  },
-  buttonText: {
-    textAlign: 'center',
-    color: '#FFFFFF', // Text color
-    fontSize: 20,
-    fontWeight: 'bold',
   }
->>>>>>> 0c80e50 (unbreaking...)
 });
 
 export default WelcomePage;
