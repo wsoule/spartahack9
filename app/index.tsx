@@ -1,5 +1,10 @@
-import { Text } from 'react-native';
+import { View } from 'react-native';
+import WelcomePage from './welcome';
 
 export default function Page() {
-  return <Text>Home page</Text>;
+  return (
+  <View>
+    <WelcomePage />
+  </View>
+  );
 }
