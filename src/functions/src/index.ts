@@ -10,48 +10,10 @@ const visionClient = new vision.ImageAnnotatorClient();
 // Bucket name for Cloud function invocation
 const bucketName = 'wastewell-8a42f-vision';
 
-// Initialize app & db
-admin.initializeApp(functions.config().firebase);
-const db = admin.firestore();
-
-exports.addSimilarImages = functions.firestore.document('photos/{document}').onCreate((snap, context) => {
-  console.log('SNAP', snap);
-  console.log('CONTEXT', context);
-
-  const data = snap.data();
-  console.log('DATA IN IS', data);
-  const photoUrl = `gs://${data.bucket}/${data.fullPath}`;
-  console.log('URL IS', photoUrl);
-
-  return Promise.resolve()
-    .then(() => {
-      return visionClient.webDetection(photoUrl);
-    }).then(results => {
-      console.log('VISION DATA ALL IS: ', results);
-      const webDetection = results[0].webDetection
-
-      let similarImages: vision.protos.google.cloud.vision.v1.WebDetection.IWebImage[] = [];
-      if (webDetection?.visuallySimilarImages?.length) {
-        webDetection.visuallySimilarImages.forEach(image => {
-          similarImages.push(image);
-        })
-      }
-
-      console.log('similarImages', similarImages);
-
-      db.collection('photos').doc(context.params.document).update({ similarImages })
-        .then(res => console.log('dopples added'))
-  		  .catch(err => console.error(err));
-
-    }).catch(err => console.error(err));
-})
-
-export const imageTagger = functions.storage
-  .bucket(bucketName)
-  .object()
-  .onMetadataUpdate( async event => {
+export const imageTagger = functions.firestore.document('photos/{document}')
+  .onCreate( async event => {
     // File data
-    const object = event.metadata;
+    const object = event.data;
     const filePath = object.name;
 
     // Location of file saved in bucket
@@ -71,4 +33,4 @@ export const imageTagger = functions.storage
 
     return docRef.set({metal, labels});
   }
-  )
+);
