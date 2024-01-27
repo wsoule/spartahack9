@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     backgroundColor: '#F5F5F5', // A light grey background
-    height: '100%'
+    height: '100%',
+    
   },
   title: {
     fontSize: 24,
@@ -52,14 +53,16 @@ const styles = StyleSheet.create({
   imageContainer: {
     backgroundColor: '#607D8B', // Replace with your dark color
     borderRadius: 100, // Adjust for blob-like shape
-    padding: 50, // Adjust as needed
+    padding: 10, // Adjust as needed
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    height: '30%', // Change as per your requirement
+    width: '70%'
   },
   image: {
-    width: 200, // Adjust as per your requirement
-    height: 200, // Adjust as per your requirement
-    resizeMode: 'cover', // or 'contain' based on your preference
+    width: '100%', // Adjust as per your requirement
+    height: '100%', // Adjust as per your requirement
+    resizeMode: 'contain', // or 'contain' based on your preference
   },
   loginButton: {
     marginTop: 30,
