@@ -19,6 +19,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
+export default app;
 
 // Optionally import the services that you want to use
 // import {...} from "firebase/auth";

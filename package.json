@@ -13,7 +13,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@expo/vector-icons": "^13.0.0",
+    "@expo/vector-icons": "^14.0.0",
     "@google-cloud/vision": "^4.0.3",
     "@react-navigation/native": "^6.0.2",
     "expo": "^50.0.4",
