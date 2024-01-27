@@ -1,19 +1,38 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * import {onCall} from "firebase-functions/v2/https";
- * import {onDocumentWritten} from "firebase-functions/v2/firestore";
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+// Firebase
+import * as functions from 'firebase-functions'
+import * as admin from 'firebase-admin'
+admin.initializeApp(functions.config().firebase);
 
-import {onRequest} from "firebase-functions/v2/https";
-import * as logger from "firebase-functions/logger";
+// Cloud Vision
+import * as vision from '@google-cloud/vision'
+const visionClient = new vision.ImageAnnotatorClient();
 
-// Start writing functions
-// https://firebase.google.com/docs/functions/typescript
+// Bucket name for Cloud function invocation
+const bucketName = 'wastewell-8a42f';
 
-// export const helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+export const imageTagger = functions.storage
+  .bucket(bucketName)
+  .object()
+  .onMetadataUpdate( async event => {
+    // File data
+    const object = event.metadata;
+    const filePath = object.name;
+
+    // Location of file saved in bucket
+    const imageUri = `gs://${bucketName}/vision/${filePath}`;
+
+    // Firestore docId === file name
+    const docId =  filePath.split('.jpg')[0];
+
+    const docRef = admin.firestore().collection('photos').doc(docId);
+
+    // Await cloud vision response
+    const results = await visionClient.labelDetection(imageUri);
+
+    // Map results to desired format
+    const labels = results[0].labelAnnotations?.map(obj => obj.description);
+    const metal = labels?.includes('metal');
+
+    return docRef.set({metal, labels});
+  }
+  )
