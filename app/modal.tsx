@@ -1,8 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { View, TouchableOpacity, Text, Image, StyleSheet, Alert } from 'react-native';
-import { Camera, CameraType } from 'expo-camera';
-import * as MediaLibrary from 'expo-media-library';
-import { uploadImage } from '@/functions/src';
+import React from 'react';
+import { View, TouchableOpacity, Text, Image, StyleSheet } from 'react-native';
+import { Camera } from 'expo-camera';
 
 export default function ModalScreen() {
   const [imageUri, setImageUri] = useState<string | null>(null);
@@ -25,16 +23,13 @@ export default function ModalScreen() {
   const savePhoto = async () => {
     if (!imageUri) return;
     try {
-      // const { status } = await MediaLibrary.requestPermissionsAsync();
-      // if (status !== 'granted') {
-      //   Alert.alert('Permission to access gallery is required!');
-      //   return;
-      // }
-      // await MediaLibrary.createAssetAsync(imageUri);
-      // Alert.alert('Photo saved successfully!');
-      // setImageUri(null);
-      console.log('uploading image', imageUri);
-      uploadImage(imageUri);
+      const { status } = await MediaLibrary.requestPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission to access gallery is required!');
+        return;
+      }
+      await MediaLibrary.createAssetAsync(imageUri);
+      Alert.alert('Photo saved successfully!');
       setImageUri(null);
     } catch (error) {
       Alert.alert('Error saving photo');
@@ -45,6 +40,32 @@ export default function ModalScreen() {
 
   return (
     <View style={styles.container}>
+      {!imageUri ? (
+        <>
+        <Text style={styles.title}>Take a photo of your WASTE</Text>
+         <Camera style={styles.camera} type={type} ref={cameraRef} />
+         <View style={styles.buttonContainer}>
+          <TouchableOpacity onPress={toggleCameraType} style={[styles.button, styles.switchButton]}>
+            <Text style={styles.text}>Switch Camera</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={takePicture} style={styles.button}>
+            <Text style={styles.text}>Capture</Text>
+          </TouchableOpacity>
+         </View>
+        </>
+      ) : (
+        <View style={styles.fullScreen}>
+          <Image source={{ uri: imageUri }} style={styles.fullScreenImage} />
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity onPress={handleDelete} style={[styles.circleButton, styles.deleteButton]}>
+              <Text style={styles.buttonText}>X</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={savePhoto} style={[styles.circleButton, styles.saveButton]}>
+              <Text style={styles.buttonText}>✔</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
       {!imageUri ? (
         <>
         <Text style={styles.title}>Take a photo of your WASTE</Text>

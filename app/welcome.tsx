@@ -31,7 +31,7 @@ const WelcomePage: React.FC = () => {
         <TouchableOpacity
         style={styles.loginButton}
           onPress={() => {
-            console.log('pressed');
+            Alert.alert('You tapped the SIGN IN button!');
           }}
         >
           <Text style={styles.buttonText}>Sign In</Text>
