@@ -2,7 +2,7 @@ import { auth } from '../firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ip = 'http://35.21.206.251:3000';
+export const ip = 'http://35.21.206.251:3000';
 
 export const registerUser = async (email, password, username, zipcode) => {
   createUserWithEmailAndPassword( auth, email, password)
