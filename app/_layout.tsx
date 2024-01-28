@@ -25,7 +25,7 @@ export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
   initialRouteName: "/",
 };
-export const API_URL = 'http://35.21.206.251:3000';
+export const API_URL = 'http://35.23.194.12:3000';
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 

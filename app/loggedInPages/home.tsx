@@ -36,6 +36,12 @@ const HomePage = () => {
               <Text style={styles.footerText}>Leaderboard</Text>
             </TouchableOpacity>
           </Link>
+        <Link href="/loggedInPages/settings" asChild>
+          <TouchableOpacity style={styles.iconContainer}>
+            <FontAwesome name="gear" size={24} color="white" />
+            <Text style={styles.footerText}>Settings</Text>
+          </TouchableOpacity>
+        </Link>
         </View>
       </View>
     </>

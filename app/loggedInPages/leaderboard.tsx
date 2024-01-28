@@ -1,7 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
-import { FlatList, Text } from 'react-native';
-import { StyleSheet, View } from 'react-native';
+import { FlatList, Text, View, Image, StyleSheet } from 'react-native';
 import { API_URL } from '../_layout';
 export type User ={
     _id: string;
@@ -45,14 +43,24 @@ const Leaderboard: React.FC = () => {
         data={users}
         keyExtractor={item => item._id}
         renderItem={({ item, index }) => (
-          <View style={styles.row}>
-            <Text style={styles.cell}>{index + 1}</Text>
-            <Text style={styles.cell}>{item.username}</Text>
-            <Text style={styles.cell}>{item.points}</Text>
+          <View style={styles.itemContainer}>
+            <View style={styles.infoContainer}>
+              <Image source={{ uri: item.badges[0] }} style={styles.badge} />
+            </View>
+            <View style={styles.infoContainer}>
+              <Text style={styles.rank}>{index + 1}</Text>
+            </View>
+            <View style={styles.infoContainer}>
+              <Text style={styles.name}>{item.username}</Text>
+            </View>
+            <View style={styles.scoreContainer}>
+              <Text style={styles.score}>{item.points}</Text>
+            </View>
           </View>
         )}
         ListHeaderComponent={() => (
           <View style={styles.row}>
+            <Text style={styles.cell}>Badge</Text>
             <Text style={styles.cell}>Rank</Text>
             <Text style={styles.cell}>Name</Text>
             <Text style={styles.cell}>Score</Text>
@@ -68,7 +76,8 @@ const Leaderboard: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#607D8B',
+    height: '100%',
   },
   header: {
     fontSize: 20,
@@ -86,6 +95,40 @@ const styles = StyleSheet.create({
   cell: {
     flex: 1,
     textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  badge: {
+    width: 40,
+    height: 40,
+    borderRadius: 20, // makes it circular
+    marginRight: 10,
+  },
+  name: {
+    textAlign: 'left',
+  },
+  rank: {
+    textAlign: 'left',
+  },
+  scoreContainer: {
+    marginRight: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  score: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 
