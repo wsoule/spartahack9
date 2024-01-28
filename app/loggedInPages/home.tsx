@@ -71,9 +71,12 @@ const styles = StyleSheet.create({
   content: {
     justifyContent: 'center',
     alignItems: 'center',
+    top: 0,
+    width: '100%',
+    position: 'absolute',
     padding: 20,
     backgroundColor: '#F5F5F5', // A light grey background
-    height: '100%',
+    height: 600,
     flex: 1,
     // Add additional styling for the content area if needed
   },
@@ -112,12 +115,10 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'white',
   },
   points: {
     fontSize: 18,
     textAlign: 'center',
-    color: 'white',
     margin: 0,
   },
   friendsBtn: {
