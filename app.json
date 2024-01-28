@@ -32,7 +32,7 @@
     },
     "plugins": [
       "expo-router",
-      "expo-camera"
+      "expo-camera",
     ],
     "experiments": {
       "typedRoutes": true
