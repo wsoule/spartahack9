@@ -61,7 +61,6 @@ export default function ModalScreen() {
   const savePhoto = async () => {
     if (!imageUri) return;
     try {
-      console.log('uploading image: ', imageUri);
       uploadImage(imageUri);
       setImageUri(null);
     } catch (error) {

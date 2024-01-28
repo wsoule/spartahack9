@@ -2,6 +2,7 @@ import { registerUser } from '@/auth';
 import React, { useState } from 'react';
 import { View, TextInput, TouchableWithoutFeedback, Keyboard, Button, StyleSheet, Text } from 'react-native';
 
+
 interface SignUpFormProps {
   onSignUp: (email: string, password: string, username: string, zipCode: string) => void;
 }
@@ -13,12 +14,12 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
   const [username, setUsername] = useState<string>('');
   const [zipCode, setZipCode] = useState<string>('');
 
-  const handleSignUp = async () => {
+  const handleSignUp = () => {
     if (password !== confirmPassword) {
       alert("Passwords don't match");
       return;
     }
-    const successfulRegistry = await registerUser(email, password, username, zipCode);
+    registerUser(email, password, username, zipCode);
   };
 
   return (

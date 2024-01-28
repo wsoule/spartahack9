@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
 import { FlatList, Text } from 'react-native';
 import { StyleSheet, View } from 'react-native';
+import { API_URL } from '../_layout';
 export type User ={
     _id: string;
     username: string;
@@ -24,13 +25,19 @@ export type User ={
 const Leaderboard: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   useEffect(() => {
-    fetch(`${process.env.API_URL}/leaderboard`)
+
+    fetch(`${API_URL}/leaderboard`)
       .then(response => response.json())
       .then(data => {
         data.id = data._id;
         setUsers(data)
-      });
+      }).catch((error) => {
+        alert(API_URL);
+      }
+      );
+  
   },[]);
+  
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Leaderboard</Text>

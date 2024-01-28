@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList } from 'react-native';
 import { User } from './leaderboard';
+import { API_URL } from '../_layout';
+import { Button } from 'react-native-paper';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type Item = {
   _id: string;
@@ -9,17 +12,37 @@ export type Item = {
   seller: User;
   status: 'recycled' | 'sold' | 'trash';
   imageUrl: string;
+  description: string;
+  tags: string[];
 }
 
 const Marketplace = () => {
   const [marketData, setMarketData] = useState<Item[]>([]); 
+  const [userId, setUserId] = useState<string>('');
   useEffect(() => {
-    fetch(`${process.env.API_URL}/list`)
+    fetch(`${API_URL}/items`)
       .then(response => response.json())
       .then(data => {
         setMarketData(data)
+      }).catch((error) => {
+        alert(error);
       });
-  });
+      // setUserId(await AsyncStorage.getItem("Id"));
+  }, []);
+
+  const requestItem = (item: Item) => {
+    fetch(`${API_URL}/items/${item._id}/request`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: "60a9d3f3b4a9c60015f6e2a6",
+      })
+    })
+      .then((response) => response.json())
+      .catch((error) => console.log(error));
+  }
   // const data = [
   //   {
   //     id: '1',
@@ -40,13 +63,18 @@ const Marketplace = () => {
   //   // Add more items as needed
   // ];
 
-  const renderItem = ({ item }: { item: Item }) => (
+  const renderItem = ({ item }: { item: Item }): JSX.Element => (
     <View style={styles.card}>
-      <Text style={styles.userName}>{item.seller.username}</Text>
-      {/* <Image source={require(item.imageUrl)} style={styles.itemImage} /> */}
+      <Text style={styles.userName}>{item.seller?.username}</Text>
+      <Image source={{ uri: item.imageUrl}} style={styles.itemImage} />
       <Text style={{ ...styles.itemName, fontWeight: 'bold' }}>{item.name}</Text>
-      {/* <Text style={styles.itemDescription}>{item.itemDescription}</Text> */}
-      <Text style={styles.zipCode}>{item.seller.location}</Text>
+      <Text style={styles.itemDescription}>{item.description}</Text>
+      <Text style={styles.zipCode}>{item.seller?.location}</Text>
+      <Button mode="contained" onPress={(item) => {
+
+      }}>
+        Request Item
+        </Button>
     </View>
   );
 

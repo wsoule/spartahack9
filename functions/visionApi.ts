@@ -1,7 +1,7 @@
 import * as FileSystem from "expo-file-system";
 import axios from "axios";
 
-export const analyzeImage = async (imageUri: string): Promise<any> => {
+export const analyzeImage = async (imageUri: string): Promise<string[] | void> => {
     try {
       if (!imageUri) {
         alert("Please select an image first!");
@@ -32,8 +32,7 @@ export const analyzeImage = async (imageUri: string): Promise<any> => {
       };
 
       const apiResponse = await axios.post(apiURL, requestData, config);
-      console.log(apiResponse);
-      return(apiResponse.data.responses[0].labelAnnotations);
+      return(apiResponse.data.responses[0].labelAnnotations.map((label: any) => label.description));
     } catch (error) {
       console.error("Error analyzing image: ", error);
       alert("Error analyzing image. Please try again later");
