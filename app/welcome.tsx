@@ -1,3 +1,4 @@
+import { Link } from 'expo-router';
 import React from 'react';
 import { Alert, Button, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
@@ -19,14 +20,17 @@ const WelcomePage: React.FC = () => {
       >
         <Text style={styles.buttonText}>Join Now</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-      style={styles.loginButton}
-        onPress={() => {
-          Alert.alert('You tapped the SIGN IN button!');
-        }}
-      >
-        <Text style={styles.buttonText}>Sign In</Text>
-      </TouchableOpacity>
+      <Link href='/(tabs)' asChild>
+        <TouchableOpacity
+        style={styles.loginButton}
+          onPress={() => {
+            Alert.alert('You tapped the SIGN IN button!');
+          }}
+        >
+          <Text style={styles.buttonText}>Sign In</Text>
+        </TouchableOpacity>
+      </Link>
+      
     </View>
   );
 };
