@@ -2,7 +2,6 @@ import { Link } from 'expo-router';
 import React from 'react';
 import { Alert, Button, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { sendDataToServer } from './utils/api';
 import { uploadImage } from '@/functions/src';
 
 const WelcomePage: React.FC = () => {
@@ -16,30 +15,19 @@ const WelcomePage: React.FC = () => {
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={require('@/assets/images/recycle.png')}/>
       </View>
-      <TouchableOpacity
-      style={styles.signUpButton}
-        onPress={() => {
-          sendDataToServer({
-            name: 'John Doe',
-            email: 'thinhg',
-            message: 'Hello World'
-          })
-          Alert.alert('You tapped the sign up button!');
-        }}
-      >
-        <Text style={styles.buttonText}>Join Now</Text>
-      </TouchableOpacity>
-      <Link href='/(tabs)' asChild>
-        <TouchableOpacity
-        style={styles.loginButton}
-          onPress={() => {
-            console.log('pressed');
-          }}
-        >
-          <Text style={styles.buttonText}>Sign In</Text>
+      <Link href={'/loginForm'} asChild>
+        <TouchableOpacity style={styles.signUpButton}>
+          <Text style={styles.buttonText}>Join Now</Text>
         </TouchableOpacity>
       </Link>
-      
+      <TouchableOpacity
+      style={styles.loginButton}
+        onPress={() => {
+          Alert.alert('You tapped the SIGN IN button!');
+        }}
+      >
+        <Text style={styles.buttonText}>Sign In</Text>
+      </TouchableOpacity>
     </View>
     </SafeAreaView>
 
