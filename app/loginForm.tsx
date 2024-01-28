@@ -1,6 +1,9 @@
 import { loginUser } from '@/auth';
-import React, { useState } from 'react';
+import { StackActions } from '@react-navigation/native';
+import { useNavigation } from 'expo-router';
+import React, { useContext, useState } from 'react';
 import { View, TouchableWithoutFeedback, Keyboard, TextInput, Button, StyleSheet, Text } from 'react-native';
+import { AuthContext } from '@/auth/authContext';
 
 interface LoginFormProps {
   onLogin: (email: string, password: string) => void;
@@ -12,6 +15,12 @@ const LoginForm: React.FC<LoginFormProps> = () => {
 
   const handleLogin = async () => {
     const successfulLog = await loginUser(email, password);
+    console.log("Logged in");
+    if (successfulLog) {
+      const { setIsLoggedIn } = useContext(AuthContext);
+      setIsLoggedIn(true);
+      useNavigation().dispatch(StackActions.push('/'));
+    }
   };
 
   return (

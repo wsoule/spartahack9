@@ -3,6 +3,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DarkTheme,
   DefaultTheme,
+  StackActions,
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
@@ -16,6 +17,7 @@ import { PaperProvider } from "react-native-paper";
 import { onAuthStateChanged, signOut } from '@firebase/auth';
 import { auth } from '../firebaseConfig'
 import { logoutUser } from "@/auth";
+import { AuthProvider } from "@/auth/authContext";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -36,7 +38,7 @@ export default function RootLayout() {
     ...FontAwesome.font,
   });
 
-  // Authentication listener
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged( auth, (user: any) => {
       if (user) {
@@ -71,17 +73,18 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-
   return (
-    <PaperProvider  theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen
-          name="welcome"
-          options={{ headerShown: false, title: "Welcome" }}
-        />
-      </Stack>
-    </ThemeProvider>
-    </PaperProvider>
+    <AuthProvider >
+      <PaperProvider  theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen
+            name="welcome"
+            options={{ headerShown: false, title: "Welcome" }}
+          />
+        </Stack>
+      </ThemeProvider>
+      </PaperProvider>
+    </AuthProvider>
   );
 }
