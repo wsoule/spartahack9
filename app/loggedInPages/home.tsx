@@ -9,11 +9,15 @@ const HomePage = () => {
   const points = 12;
   return ( 
     <View style={styles.container}>
-      <TouchableOpacity style={styles.friendsBtn} onPress={() => router.navigate('/loggedInPaged/friends')}>
-        <Text style={styles.points}>Friends</Text>
-      </TouchableOpacity>
-      <Text style={styles.username}>Username: {username}</Text>
-      <Text style={styles.points}>Points Earned: {points}</Text>
+      <View style={styles.content}>
+        <TouchableOpacity style={styles.friendsBtn} onPress={() => router.navigate('/loggedInPaged/friends')}>
+          <Text style={styles.points}>Friends</Text>
+        </TouchableOpacity>
+        <View style={styles.container}>
+          <Text style={styles.username}>Username: {username}</Text>
+          <Text style={styles.points}>Points Earned: {points}</Text>
+        </View>
+      </View>
       <View style={styles.footer}>
         <Link href="/loggedInPages/cameraModal" asChild>
           <TouchableOpacity style={styles.iconContainer}>
@@ -49,18 +53,10 @@ const HomePage = () => {
 };
 
 const styles = StyleSheet.create({
-  mainContent: {
-    // Add styles for your main content area
-    marginTop: 60,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    color:'FFFFFF'
-  },
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
+    color: 'white',
   },
   header: {
     height: 60,
@@ -73,18 +69,21 @@ const styles = StyleSheet.create({
     fontSize: 0,
   },
   content: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#F5F5F5', // A light grey background
+    height: '100%',
     flex: 1,
-    padding: 0,
     // Add additional styling for the content area if needed
   },
   footer: {
     flexDirection: "row",
     bottom: -600,
     height: 100,
-    justifyContent: "space-around",
+    justifyContent: 'space-evenly',
     alignItems: "center",
     backgroundColor: "#81C784",
-    paddingVertical: 16,
   },
   footerText: {
     textAlign: "center",
@@ -113,7 +112,6 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 20,
     fontWeight: 'bold',
-    margin: 0,
     color: 'white',
   },
   points: {
