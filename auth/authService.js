@@ -53,6 +53,7 @@ export const loginUser = async (email, password) => {
 
 
     alert(`User logged in successfully`);
+
     return true;
   } catch (error) {
     alert(`Login failed: ${error.message}`);

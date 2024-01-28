@@ -1,9 +1,10 @@
 import { loginUser } from '@/auth';
-import { StackActions } from '@react-navigation/native';
 import { useNavigation } from 'expo-router';
-import React, { useContext, useState } from 'react';
-import { View, TouchableWithoutFeedback, Keyboard, TextInput, Button, StyleSheet, Text } from 'react-native';
-import { AuthContext } from '@/auth/authContext';
+import { useContext, useState } from 'react';
+import { router } from 'expo-router';
+
+import { View, TouchableWithoutFeedback, Keyboard, TextInput, Button, StyleSheet } from 'react-native';
+import { AuthContext } from '@/app/authContext';
 
 interface LoginFormProps {
   onLogin: (email: string, password: string) => void;
@@ -12,14 +13,15 @@ interface LoginFormProps {
 const LoginForm: React.FC<LoginFormProps> = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const { setIsLoggedIn } = useContext(AuthContext);
 
   const handleLogin = async () => {
     const successfulLog = await loginUser(email, password);
-    console.log("Logged in");
+
     if (successfulLog) {
-      const { setIsLoggedIn } = useContext(AuthContext);
+      console.log("Logged in");
       setIsLoggedIn(true);
-      useNavigation().dispatch(StackActions.push('/'));
+      router.navigate('/');
     }
   };
 

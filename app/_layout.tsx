@@ -3,21 +3,18 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DarkTheme,
   DefaultTheme,
-  StackActions,
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack, useNavigation } from "expo-router";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 
 import { useColorScheme } from "@/components/useColorScheme";
-import { PaperProvider } from "react-native-paper";
 
 // Authentication
-import { onAuthStateChanged, signOut } from '@firebase/auth';
+import { onAuthStateChanged } from '@firebase/auth';
 import { auth } from '../firebaseConfig'
-import { logoutUser } from "@/auth";
-import { AuthProvider } from "@/auth/authContext";
+import { AuthProvider } from "@/app/authContext";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -67,7 +64,7 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
-
+  
   return <RootLayoutNav />;
 }
 
@@ -75,7 +72,6 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
   return (
     <AuthProvider >
-      <PaperProvider  theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen
@@ -84,7 +80,6 @@ function RootLayoutNav() {
           />
         </Stack>
       </ThemeProvider>
-      </PaperProvider>
     </AuthProvider>
   );
 }
