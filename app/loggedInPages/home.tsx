@@ -16,32 +16,32 @@ const HomePage = () => {
         <View style={styles.footer}>
           <Link href="/loggedInPages/cameraModal" asChild>
             <TouchableOpacity style={styles.iconContainer}>
-              <FontAwesome name="camera" size={24} style={styles.cameraIcon} />
-              <Text style={styles.footerText}>Picture</Text>
+              <FontAwesome name="camera" size={35} style={styles.cameraIcon} />
+              {/* <Text style={styles.footerText}>Picture</Text> */}
             </TouchableOpacity>
           </Link>
           <Link href="/loggedInPages/marketplace" asChild>
             <TouchableOpacity style={styles.iconContainer}>
               <FontAwesome
                 name="shopping-bag"
-                size={24}
+                size={35}
                 style={styles.shoppingBagIcon}
               />
-              <Text style={styles.footerText}>Market</Text>
+              {/* <Text style={styles.footerText}>Market</Text> */}
             </TouchableOpacity>
           </Link>
           <Link href="/loggedInPages/leaderboard" asChild>
             <TouchableOpacity style={styles.iconContainer}>
-              <FontAwesome name="trophy" size={24} style={styles.trophyIcon} />
-              <Text style={styles.footerText}>Leaderboard</Text>
+              <FontAwesome name="trophy" size={35} style={styles.trophyIcon} />
+              {/* <Text style={styles.footerText}>Points</Text> */}
             </TouchableOpacity>
           </Link>
-        <Link href="/loggedInPages/settings" asChild>
-          <TouchableOpacity style={styles.iconContainer}>
-            <FontAwesome name="gear" size={24} color="white" />
-            <Text style={styles.footerText}>Settings</Text>
-          </TouchableOpacity>
-        </Link>
+          <Link href="/loggedInPages/settings" asChild>
+            <TouchableOpacity style={styles.iconContainer}>
+              <FontAwesome name="gear" size={35} style={styles.trophyIcon} />
+              {/* <Text style={styles.footerText}>Settings</Text> */}
+            </TouchableOpacity>
+          </Link>
         </View>
       </View>
     </>
@@ -82,18 +82,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "#81C784",
-    paddingVertical: 10,
+    paddingVertical: 16,
   },
   footerText: {
     textAlign: "center",
     color: "#388E3C",
-    marginTop: 3,
+    marginTop: 0,
   },
   iconContainer: {
     alignItems: "center",
     justifyContent: "center",
-    padding: 20,
-    borderRadius: 100,
+    padding: 15,
+    borderRadius: 30,
     backgroundColor: "#F5F5F5", // Center-align items within the container
   },
   cameraIcon: {
