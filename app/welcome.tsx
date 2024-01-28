@@ -3,6 +3,7 @@ import React from 'react';
 import { Alert, Button, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { sendDataToServer } from './utils/api';
+import { uploadImage } from '@/functions/src';
 
 const WelcomePage: React.FC = () => {
   return (
@@ -28,6 +29,17 @@ const WelcomePage: React.FC = () => {
       >
         <Text style={styles.buttonText}>Sign In</Text>
       </TouchableOpacity>
+      <Link href='/' asChild>
+        <TouchableOpacity
+        style={styles.loginButton}
+          onPress={() => {
+            uploadImage()
+          }}
+        >
+          <Text style={styles.buttonText}>Sign In</Text>
+        </TouchableOpacity>
+      </Link>
+      
     </View>
     </SafeAreaView>
 
