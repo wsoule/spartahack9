@@ -9,7 +9,7 @@ export default function Page() {
 
   return (
   <View>
-    {(true) ? <HomePage /> : <WelcomePage />}
+    {(isLoggedIn) ? <HomePage /> : <WelcomePage />}
   </View>
   );
 }
