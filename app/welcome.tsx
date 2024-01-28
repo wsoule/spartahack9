@@ -3,6 +3,7 @@ import React from 'react';
 import { Alert, Button, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { registerUser } from '@/auth';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { sendDataToServer } from './utils/api';
 
 const WelcomePage: React.FC = () => {
   return (
