@@ -2,6 +2,7 @@ import { Link } from 'expo-router';
 import React from 'react';
 import { Alert, Button, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { uploadImage } from '@/functions/src';
 
 const WelcomePage: React.FC = () => {
   return (
