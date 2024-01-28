@@ -59,16 +59,16 @@ const Marketplace = () => {
   const renderItem = ({ item }: { item: Item }): JSX.Element => (
     <>
 <Card style={{ margin: 20 }}>
-  <Card.Title title={item.name} subtitle={item.description} />
+  <Card.Title title={item.name} subtitle={item.description} style={styles.itemName}/>
   <Card.Cover source={{ uri: item.imageUrl }} />
   <Card.Content>
-    <Text style={{ ...styles.zipCode, fontWeight: 'bold' }}>{item.seller?.location}</Text>
+    <Text style={{ ...styles.zipCode, fontWeight: 'bold' }}>Zip Code: {item.seller?.location}</Text>
     
     {/* Use ScrollView with horizontal scrolling for the Chips */}
     <ScrollView horizontal style={{ flexDirection: 'row', marginTop: 5 }}>
       {/* Map over item.tags and render a Chip for each tag */}
       {item.tags.map((tag, index) => (
-        <Chip key={index} style={{ margin: 5 }}>
+        <Chip key={index} style={{ margin: 5, backgroundColor: '#81C784' }}>
           {tag}
         </Chip>
       ))}
@@ -77,7 +77,7 @@ const Marketplace = () => {
   
   {/* Action buttons */}
   <Card.Actions>
-    <Button mode="contained" onPress={() => requestItem(item)}>
+    <Button buttonColor='#4CAF50' mode="contained" onPress={() => requestItem(item)}>
       Request Item
     </Button>
   </Card.Actions>
@@ -85,18 +85,7 @@ const Marketplace = () => {
 
    
     </>
-    // <View style={styles.card}>
-    //   <Text style={styles.userName}>{item.seller?.username}</Text>
-    //   <Image source={{ uri: item.imageUrl}} style={styles.itemImage} />
-    //   <Text style={{ ...styles.itemName, fontWeight: 'bold' }}>{item.name}</Text>
-    //   <Text style={styles.itemDescription}>{item.description}</Text>
-    //   <Text style={styles.zipCode}>{item.seller?.location}</Text>
-    //   <Button mode="contained" onPress={() => {
-    //     requestItem(item);
-    //   }}>
-    //     Request Item
-    //     </Button>
-    // </View>
+
   );
 
   return (
@@ -114,6 +103,7 @@ const styles = {
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor: '#9E9E9E'
   },
   card: {
     backgroundColor: '#fff',
@@ -126,7 +116,7 @@ const styles = {
     marginBottom: 8,
   },
   itemImage: {
-    width: 100,
+    width: 80,
     height: 200,
     marginBottom: 8,
     borderRadius: 4,
@@ -134,7 +124,7 @@ const styles = {
   itemName: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 4,
+    marginBottom: 8,
   },
   itemDescription: {
     fontSize: 14,
