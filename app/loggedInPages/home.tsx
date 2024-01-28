@@ -10,7 +10,7 @@ const HomePage = () => {
     <>
       <View style={styles.container}>
         <View style={styles.mainContent}>
-          <Text>Welcome to the Homepage!</Text>
+          <Text>Welcome to the homepage, {username}!</Text>
           {/* Add more content or components here */}
         </View>
         <View style={styles.footer}>
