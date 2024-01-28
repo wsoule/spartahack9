@@ -13,12 +13,12 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
   const [username, setUsername] = useState<string>('');
   const [zipCode, setZipCode] = useState<string>('');
 
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     if (password !== confirmPassword) {
       alert("Passwords don't match");
       return;
     }
-    registerUser(email, password, username, zipCode);
+    const successfulRegistry = await registerUser(email, password, username, zipCode);
   };
 
   return (

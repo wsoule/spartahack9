@@ -10,8 +10,8 @@ const LoginForm: React.FC<LoginFormProps> = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const handleLogin = () => {
-    loginUser(email, password);
+  const handleLogin = async () => {
+    const successfulLog = await loginUser(email, password);
   };
 
   return (

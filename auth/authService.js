@@ -3,7 +3,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, up
 
 const ip = 'http://35.21.206.251:3000';
 
-export const registerUser = (email, password, username, zipcode) => {
+export const registerUser = async (email, password, username, zipcode) => {
   createUserWithEmailAndPassword( auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
@@ -14,18 +14,18 @@ export const registerUser = (email, password, username, zipcode) => {
         body: JSON.stringify({ email, username, location: zipcode }),
       })
       .then(res => {
-        alert(res.json());
         return res.json();
       })
       .then((res) => {
         localStorage.setItem('Id', res._id);
         localStorage.setItem('username', res.username);
-        alert(res._id, res.username);
+        alert(`Registered user: ${user.username}`);
+        return true;
       });
-      alert(`Registered user: ${user.username}`);
     })
     .catch((error) => {
       alert(`Register user failed ${error.message}`);
+      return false;
     });
 };
 
@@ -44,9 +44,11 @@ export const loginUser = async (email, password) => {
         return res.json();
       });
 
-    alert(`User ${user.displayName} logged in successfully`);
+    alert(`User logged in successfully`);
+    return true;
   } catch(error) {
     alert(`Login failed: ${error.message}`);
+    return false;
   }
 };
 
@@ -54,7 +56,9 @@ export const logoutUser = async () => {
   try {
     await signOut(auth);
     alert('User logged out successfully');
+    return true;
   } catch (error) {
     alert(`Logout failed: ${error.message}`);
+    return false;
   }
 }

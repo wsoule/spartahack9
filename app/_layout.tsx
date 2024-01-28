@@ -13,8 +13,9 @@ import { useColorScheme } from "@/components/useColorScheme";
 import { PaperProvider } from "react-native-paper";
 
 // Authentication
-import { onAuthStateChanged } from '@firebase/auth';
+import { onAuthStateChanged, signOut } from '@firebase/auth';
 import { auth } from '../firebaseConfig'
+import { logoutUser } from "@/auth";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -42,9 +43,8 @@ export default function RootLayout() {
         // User is signed in
         // Handle user state
       } else {
-
-        // User is signed out
-        // Handle sign out
+        // User not signed in
+        // handle user state
       }
     });
 
