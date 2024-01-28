@@ -3,6 +3,7 @@ import React from 'react';
 import { Alert, Button, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { sendDataToServer } from './utils/api';
+import { uploadImage } from '@/functions/src';
 
 const WelcomePage: React.FC = () => {
   return (
@@ -32,7 +33,7 @@ const WelcomePage: React.FC = () => {
         <TouchableOpacity
         style={styles.loginButton}
           onPress={() => {
-            Alert.alert('You tapped the SIGN IN button!');
+            console.log('pressed');
           }}
         >
           <Text style={styles.buttonText}>Sign In</Text>

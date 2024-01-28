@@ -1,38 +1,51 @@
-// Firebase
-import * as functions from 'firebase-functions'
-import * as admin from 'firebase-admin'
-admin.initializeApp(functions.config().firebase);
+// Import the functions you need from the SDKs you need
+import * as FileSystem from 'expo-file-system';
+import { initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
+import * as vision from '@google-cloud/vision';
+import * as ImagePicker from 'expo-image-picker';
+import * as blobUtil from 'blob-util';
+//import { launchImageLibrary } from 'react-native-image-picker';
 
-// Cloud Vision
-import * as vision from '@google-cloud/vision'
-const visionClient = new vision.ImageAnnotatorClient();
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyB6DYEaHHA6cJjwpGGTbkbnnKxxWAmD6_I",
+  authDomain: "wastewell-8a42f.firebaseapp.com",
+  databaseURL: "https://wastewell-8a42f-default-rtdb.firebaseio.com",
+  projectId: "wastewell-8a42f",
+  storageBucket: "wastewell-8a42f.appspot.com",
+  messagingSenderId: "453658463481",
+  appId: "1:453658463481:web:bb43bb54c0ee0db3ed6628",
+  measurementId: "G-S8DDLRCTJE"
+};
 
-// Bucket name for Cloud function invocation
-const bucketName = 'wastewell-8a42f';
 
-export const imageTagger = functions.storage
-  .bucket(bucketName)
-  .object()
-  .onMetadataUpdate(async event => {
-    // File data
-    const object = event.metadata ?? {};
-    const filePath = object.name;
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const storage = getStorage(app);
+//const visionClient = new vision.ImageAnnotatorClient();
 
-    // Location of file saved in bucket
-    const imageUri = `gs://${bucketName}/vision/${filePath}`;
 
-    // Firestore docId === file name
-    const docId = filePath.split('.jpg')[0];
+/**
+ * Uploads an image to Firebase Storage and optionally processes it with Google Cloud Vision.
+ * @param {string} imagePath - Path to the image file.
+ */
+export const uploadImage = async (result: any) => {
+  // let result = await ImagePicker.launchImageLibraryAsync({
+  //   mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  //   allowsEditing: true,
+  //   aspect: [4, 3],
+  //   quality: 1,
+  // });
 
-    const docRef = admin.firestore().collection('photos').doc(docId);
-
-    // Await cloud vision response
-    const results = await visionClient.labelDetection(imageUri);
-
-    // Map results to desired format
-    const labels = results[0].labelAnnotations?.map(obj => obj.description);
-    const metal = labels?.includes('metal');
-
-    return docRef.set({ metal, labels });
+  console.log(result);
+  if (result) {
+    const uri = result;
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const storageRef = ref(storage, `images/${uri.split('/').pop()}`);
+    await uploadBytes(storageRef, blob);
+    console.log('Image uploaded to Firebase Storage');
   }
-  )
+};
+
