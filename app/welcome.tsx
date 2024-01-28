@@ -3,10 +3,12 @@ import React from 'react';
 import { Alert, Button, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { registerUser } from '@/auth';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { sendDataToServer } from './utils/api';
 
 const WelcomePage: React.FC = () => {
   return (
-    <SafeAreaView>    <View style={styles.container}>
+    <SafeAreaView>    
+      <View style={styles.container}>
       <Text style={styles.title}>Welcome to WasteWell!</Text>
       <Text style={styles.subtitle}>
         WasteWell's mission is to make recycling easy and fun. We aim to educate and engage users in sustainable practices through a simple, interactive app that identifies recyclable items with just a photo. Join us in our journey to inspire a greener lifestyle, one piece of trash at a time.
