@@ -18,50 +18,43 @@ export type Item = {
 
 const Marketplace = () => {
   const [marketData, setMarketData] = useState<Item[]>([]); 
-  const [userId, setUserId] = useState<string>('');
+  const [userId, setUserId] = useState<string | null>('');
   useEffect(() => {
-    fetch(`${API_URL}/items`)
-      .then(response => response.json())
-      .then(data => {
-        setMarketData(data)
-      }).catch((error) => {
-        alert(error);
-      });
-      // setUserId(await AsyncStorage.getItem("Id"));
-  }, []);
+    const fetchData = async () => {
+      try {
+        // Retrieve user ID from AsyncStorage
+        const storedUserId = await AsyncStorage.getItem('Id');
+        setUserId(storedUserId);
 
-  const requestItem = (item: Item) => {
-    fetch(`${API_URL}/items/${item._id}/request`, {
+        // Fetch market data
+        const response = await fetch(`${API_URL}/items`);
+        const data = await response.json();
+        setMarketData(data);
+      } catch (error) {
+        alert(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  const requestItem =  (item: Item) => {
+    const seller = item;
+
+    console.log('item = ', item);
+    fetch(`${API_URL}/update-item/${item._id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userId: "60a9d3f3b4a9c60015f6e2a6",
+        userId: item.seller._id,
+        status: 'taken',
+        buyerId: userId
       })
     })
       .then((response) => response.json())
       .catch((error) => console.log(error));
   }
-  // const data = [
-  //   {
-  //     id: '1',
-  //     user: 'John Doe',
-  //     itemImage: require('@/assets/images/recycle.png'),
-  //     itemName: 'Item 1',
-  //     itemDescription: 'This is item 1 description.',
-  //     zipCode: '12345',
-  //   },
-  //   {
-  //     id: '2',
-  //     user: 'Jane Smith',
-  //     itemImage: require('@/assets/images/recycle.png'),
-  //     itemName: 'Item 2',
-  //     itemDescription: 'This is item 2 description.',
-  //     zipCode: '67890',
-  //   },
-  //   // Add more items as needed
-  // ];
 
   const renderItem = ({ item }: { item: Item }): JSX.Element => (
     <View style={styles.card}>
@@ -70,8 +63,8 @@ const Marketplace = () => {
       <Text style={{ ...styles.itemName, fontWeight: 'bold' }}>{item.name}</Text>
       <Text style={styles.itemDescription}>{item.description}</Text>
       <Text style={styles.zipCode}>{item.seller?.location}</Text>
-      <Button mode="contained" onPress={(item) => {
-
+      <Button mode="contained" onPress={() => {
+        requestItem(item);
       }}>
         Request Item
         </Button>

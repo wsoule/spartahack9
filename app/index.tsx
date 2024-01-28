@@ -9,7 +9,7 @@ export default function Page() {
   console.log(isLoggedIn);
   return (
   <View>
-    {(isLoggedIn) ? <HomePage /> : <WelcomePage />}
+    {(true) ? <HomePage /> : <WelcomePage />}
   </View>
   );
 }

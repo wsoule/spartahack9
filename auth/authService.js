@@ -42,9 +42,10 @@ export const loginUser = async (email, password) => {
         const responseData = await res.json();
         // Store user data in AsyncStorage
         await AsyncStorage.setItem('Id', responseData._id);
-        await AsyncStorage.setItem('username', responseData.username);
-        User.username = responseData.username;
-        User.userId = responseData._id;
+        await AsyncStorage.setItem('email', responseData.email);
+        // User.email = responseData.email;
+        // User.userId = responseData._id;
+        console.log(responseData);
       }).catch((error) => {
         alert(`Login failed ${error.message}`);
       });
