@@ -9,7 +9,6 @@ export const registerUser = (email, password) => {
     })
     .catch((error) => {
       // Display errors
-      console.error(error);
     });
 };
 
@@ -20,6 +19,7 @@ export const loginUser = async (email, password) => {
     const user = userCredential.user;
     // handle userCredential
   } catch (error) {
+
     // handle error
   }
 };

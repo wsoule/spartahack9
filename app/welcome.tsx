@@ -5,6 +5,7 @@ import { registerUser } from '@/auth';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { sendDataToServer } from './utils/api';
 import { registerUser } from '@/auth';
+import { Link } from 'expo-router';
 
 const WelcomePage: React.FC = () => {
   return (
@@ -17,26 +18,19 @@ const WelcomePage: React.FC = () => {
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={require('@/assets/images/recycle.png')}/>
       </View>
-      <TouchableOpacity
-      style={styles.signUpButton}
-        onPress={() => {
-          registerUser('JohnDoe@email.com', 'SuperSecurePassword');
-          Alert.alert('Signed in!');
-        }}
-      >
-        <Text style={styles.buttonText}>Join Now</Text>
-      </TouchableOpacity>
-      <Link href='/(tabs)' asChild>
-        <TouchableOpacity
-        style={styles.loginButton}
-          onPress={() => {
-            Alert.alert('You tapped the SIGN IN button!');
-          }}
-        >
-          <Text style={styles.buttonText}>Sign In</Text>
+      <Link href={'/loginForm'} asChild>
+        <TouchableOpacity style={styles.signUpButton}>
+          <Text style={styles.buttonText}>Join Now</Text>
         </TouchableOpacity>
       </Link>
-      
+      <TouchableOpacity
+      style={styles.loginButton}
+        onPress={() => {
+          Alert.alert('You tapped the SIGN IN button!');
+        }}
+      >
+        <Text style={styles.buttonText}>Sign In</Text>
+      </TouchableOpacity>
     </View>
     </SafeAreaView>
 
