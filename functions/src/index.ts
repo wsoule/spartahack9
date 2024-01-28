@@ -13,16 +13,16 @@ const bucketName = 'wastewell-8a42f';
 export const imageTagger = functions.storage
   .bucket(bucketName)
   .object()
-  .onMetadataUpdate( async event => {
+  .onMetadataUpdate(async event => {
     // File data
-    const object = event.metadata;
+    const object = event.metadata ?? {};
     const filePath = object.name;
 
     // Location of file saved in bucket
     const imageUri = `gs://${bucketName}/vision/${filePath}`;
 
     // Firestore docId === file name
-    const docId =  filePath.split('.jpg')[0];
+    const docId = filePath.split('.jpg')[0];
 
     const docRef = admin.firestore().collection('photos').doc(docId);
 
@@ -33,6 +33,6 @@ export const imageTagger = functions.storage
     const labels = results[0].labelAnnotations?.map(obj => obj.description);
     const metal = labels?.includes('metal');
 
-    return docRef.set({metal, labels});
+    return docRef.set({ metal, labels });
   }
   )
