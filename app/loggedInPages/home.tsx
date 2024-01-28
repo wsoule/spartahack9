@@ -1,17 +1,21 @@
 // HomePage.js
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
 const HomePage = () => {
   const username = "John Doe"; // Replace with your own name
+  const points = 12;
   return (
-    <>
+    <>   
       <View style={styles.container}>
         <View style={styles.mainContent}>
-          <Text>Welcome to the homepage, {username}!</Text>
-          {/* Add more content or components here */}
+          <TouchableOpacity style={styles.friendsBtn} onPress={() => router.navigate('/loggedInPaged/friends')}>
+            <Text style={styles.points}>Friends</Text>
+          </TouchableOpacity>
+          <Text style={styles.username}>Username: {username}</Text>
+          <Text style={styles.points}>Points Earned: {points}</Text>
         </View>
         <View style={styles.footer}>
           <Link href="/loggedInPages/cameraModal" asChild>
@@ -107,6 +111,25 @@ const styles = StyleSheet.create({
   },
   gearIcon: {
     color: "#4CAF50",
+  },
+  username: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  points: {
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  friendsBtn: {
+    marginTop: 30,
+    backgroundColor: '#4682b4',
+    borderRadius: 10,
+    padding: 10,
+    elevation: 2,
+    width: '20%',
+    height: '10%',
+    justifyContent: 'center'
   }
 });
 
