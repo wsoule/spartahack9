@@ -29,11 +29,11 @@ const WelcomePage: React.FC = () => {
       >
         <Text style={styles.buttonText}>Join Now</Text>
       </TouchableOpacity>
-      <Link href='/' asChild>
+      <Link href='/(tabs)' asChild>
         <TouchableOpacity
         style={styles.loginButton}
           onPress={() => {
-            uploadImage()
+            console.log('pressed');
           }}
         >
           <Text style={styles.buttonText}>Sign In</Text>
