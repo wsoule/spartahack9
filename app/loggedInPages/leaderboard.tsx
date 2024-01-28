@@ -1,47 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, Text, View, Image, StyleSheet } from 'react-native';
-import { API_URL } from '../_layout';
-export type User ={
-    _id: string;
-    username: string;
-    email: string;
-    friends: string[]; 
-    recycled: number;
-    sold: number;
-    trash: number;
-    points: number;
-    badges: string[]; 
-    takenItems: string[];
-    location: string;
-    givenItems: string[]; 
-    selling: number;
-    sellingItems: string[]; 
-    items: string[]; 
-    __v: number;
-  };
-  
+import React, { useEffect, useState } from "react";
+import { FlatList, Text, View, Image, StyleSheet } from "react-native";
+import { API_URL } from "../_layout";
+export type User = {
+  _id: string;
+  username: string;
+  email: string;
+  friends: string[];
+  recycled: number;
+  sold: number;
+  trash: number;
+  points: number;
+  badges: string[];
+  takenItems: string[];
+  location: string;
+  givenItems: string[];
+  selling: number;
+  sellingItems: string[];
+  items: string[];
+  __v: number;
+};
+
 const Leaderboard: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   useEffect(() => {
-
     fetch(`${API_URL}/leaderboard`)
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         data.id = data._id;
-        setUsers(data)
-      }).catch((error) => {
+        setUsers(data);
+      })
+      .catch((error) => {
         alert(API_URL);
-      }
-      );
-  
-  },[]);
-  
+      });
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Leaderboard</Text>
       <FlatList
         data={users}
-        keyExtractor={item => item._id}
+        keyExtractor={(item) => item._id}
         renderItem={({ item, index }) => (
           <View style={styles.itemContainer}>
             <View style={styles.infoContainer}>
@@ -71,64 +69,71 @@ const Leaderboard: React.FC = () => {
   );
 };
 
-
-
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
-    backgroundColor: '#607D8B',
-    height: '100%',
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#00A36C",
   },
   header: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#00A36C",
     marginBottom: 10,
   },
   row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
     paddingVertical: 10,
+    backgroundColor: "#81C784",
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomColor: "#388E3C",
   },
   cell: {
     flex: 1,
-    textAlign: 'center',
-    fontWeight: 'bold',
+    textAlign: "center",
+    fontWeight: "bold",
+    color: "#388E3C",
   },
   itemContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
     paddingVertical: 10,
+    backgroundColor: "#F5F5F5",
     borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderBottomColor: "#388E3C",
   },
   infoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    width: 90,
+    flexDirection: "row",
+    alignItems: "center",
   },
   badge: {
     width: 40,
     height: 40,
-    borderRadius: 20, // makes it circular
+    borderRadius: 20,
     marginRight: 10,
   },
   name: {
-    textAlign: 'left',
+    textAlign: "left",
+    color: "#00A36C",
   },
   rank: {
-    textAlign: 'left',
+    textAlign: "left",
+    color: "#00A36C",
   },
   scoreContainer: {
     marginRight: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   score: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
+    color: "#00A36C",
   },
 });
 
