@@ -30,16 +30,17 @@ const storage = getStorage(app);
  * Uploads an image to Firebase Storage and optionally processes it with Google Cloud Vision.
  * @param {string} imagePath - Path to the image file.
  */
-export const uploadImage = async () => {
-  let result = await ImagePicker.launchImageLibraryAsync({
-    mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    allowsEditing: true,
-    aspect: [4, 3],
-    quality: 1,
-  });
+export const uploadImage = async (result: any) => {
+  // let result = await ImagePicker.launchImageLibraryAsync({
+  //   mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  //   allowsEditing: true,
+  //   aspect: [4, 3],
+  //   quality: 1,
+  // });
 
-  if (!result.canceled) {
-    const uri = result.assets[0].uri;
+  console.log(result);
+  if (result) {
+    const uri = result;
     const response = await fetch(uri);
     const blob = await response.blob();
     const storageRef = ref(storage, `images/${uri.split('/').pop()}`);
