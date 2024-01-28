@@ -1,6 +1,6 @@
 import { registerUser } from '@/auth';
 import React, { useState } from 'react';
-import { View, TextInput, TouchableWithoutFeedbackComponent, Keyboard, Button, StyleSheet, Text } from 'react-native';
+import { View, TextInput, TouchableWithoutFeedback, Keyboard, Button, StyleSheet, Text } from 'react-native';
 
 interface SignUpFormProps {
   onSignUp: (email: string, password: string, username: string, zipCode: string) => void;
@@ -22,45 +22,46 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        value={username}
-        onChangeText={setUsername}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Confirm Password"
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-        secureTextEntry
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Zip Code"
-        value={zipCode}
-        onChangeText={setZipCode}
-        keyboardType="numeric"
-        onBlur={Keyboard.dismiss}
-      />
-      <Button title="Sign Up" onPress={handleSignUp} />
-    </View>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          value={username}
+          onChangeText={setUsername}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          secureTextEntry
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Zip Code"
+          value={zipCode}
+          onChangeText={setZipCode}
+          keyboardType="numeric"
+        />
+        <Button title="Sign Up" onPress={handleSignUp} />
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
