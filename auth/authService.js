@@ -38,27 +38,22 @@ export const loginUser = async (email, password) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),
     })
-      .then(async (res) => {
-        const responseData = await res.json();
-        // Store user data in AsyncStorage
-        await AsyncStorage.setItem('Id', responseData._id);
-        await AsyncStorage.setItem('email', responseData.email);
-        // User.email = responseData.email;
-        // User.userId = responseData._id;
-        console.log(responseData);
-      }).catch((error) => {
-        alert(`Login failed ${error.message}`);
-      });
-
-
-
-    alert(`User logged in successfully`);
-
-    return true;
+    .then(async (res) => {
+      const responseData = await res.json();
+      // Store user data in AsyncStorage
+      await AsyncStorage.setItem('Id', responseData._id);
+      await AsyncStorage.setItem('email', responseData.email);
+      // User.email = responseData.email;
+      // User.userId = responseData._id;
+      console.log(responseData);
+    }).catch((error) => {
+      alert(`Login failed ${error.message}`);
+    });
   } catch (error) {
     alert(`Login failed: ${error.message}`);
     return false;
   }
+  return true;
 };
 
 export const logoutUser = async () => {
@@ -66,10 +61,9 @@ export const logoutUser = async () => {
     await signOut(auth);
     await AsyncStorage.removeItem('Id');
     await AsyncStorage.removeItem('username');
-    alert('User logged out successfully');
-    return true;
   } catch (error) {
     alert(`Logout failed: ${error.message}`);
     return false;
   }
+  return true;
 }

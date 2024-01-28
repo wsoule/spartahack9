@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, View, StyleSheet, TouchableOpacity, Text } from "react-native";
 import { router } from "expo-router";
 import { logoutUser } from "@/auth"
+import { AuthContext } from "@/app/authContext";
 
 const Settings = () => {
+  const { setIsLoggedIn } = useContext(AuthContext);
+  const handleLogout = async () => {
+  const successfulLogout = await logoutUser();
+  if(successfulLogout) {
+    console.log('Logged out');
+    setIsLoggedIn(false);
+    router.navigate('/');
+  } else {
+    alert('Failed to logout.');
+  }
+}
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.button}>
@@ -30,7 +43,7 @@ const Settings = () => {
       <TouchableOpacity style={styles.button}>
         <Text style={styles.buttonText}>Support Us</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.logoutBtn} onPress={async () => await logoutUser()}>
+      <TouchableOpacity style={styles.logoutBtn} onPress={async () => await handleLogout()}>
         <Text style={styles.buttonText}>Sign Out</Text>
       </TouchableOpacity>
     </View>
@@ -42,7 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#F5F5F5', // A light grey background
+    backgroundColor: '#dddddd', // A light grey background
     height: '100%',
   },
   button: {

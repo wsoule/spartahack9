@@ -38,7 +38,7 @@ const HomePage = () => {
           </Link>
           <Link href="/loggedInPages/settings" asChild>
             <TouchableOpacity style={styles.iconContainer}>
-              <FontAwesome name="gear" size={35} style={styles.trophyIcon} />
+              <FontAwesome name="gear" size={35} style={styles.gearIcon} />
               {/* <Text style={styles.footerText}>Settings</Text> */}
             </TouchableOpacity>
           </Link>
@@ -105,6 +105,9 @@ const styles = StyleSheet.create({
   trophyIcon: {
     color: "#4CAF50",
   },
+  gearIcon: {
+    color: "#4CAF50",
+  }
 });
 
 export default HomePage;
