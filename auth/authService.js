@@ -1,7 +1,8 @@
 import { auth } from '../firebaseConfig';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@firebase/auth';
 
 export const registerUser = (email, password) => {
-  app.auth().createUserWithEmailAndPassword(email, password)
+  createUserWithEmailAndPassword( auth, email, password)
     .then((userCredential) => {
       // User registered
       user = userCredential.user;

@@ -13,7 +13,8 @@ import { useColorScheme } from "@/components/useColorScheme";
 import { PaperProvider } from "react-native-paper";
 
 // Authentication
-import firebase from '../firebaseConfig'
+import { onAuthStateChanged } from '@firebase/auth';
+import { auth } from '../firebaseConfig'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -36,7 +37,7 @@ export default function RootLayout() {
 
   // Authentication listener
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged((user: any) => {
+    const unsubscribe = onAuthStateChanged( auth, (user: any) => {
       if (user) {
         // User is signed in
         // Handle user state
