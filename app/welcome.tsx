@@ -1,5 +1,6 @@
 import React from 'react';
 import { Alert, Button, Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { registerUser } from '@/auth';
 
 const WelcomePage: React.FC = () => {
   return (
@@ -14,7 +15,8 @@ const WelcomePage: React.FC = () => {
       <TouchableOpacity
       style={styles.signUpButton}
         onPress={() => {
-          Alert.alert('You tapped the sign up button!');
+          registerUser('JohnDoe@email.com', 'SuperSecurePassword');
+          Alert.alert('Signed in!');
         }}
       >
         <Text style={styles.buttonText}>Join Now</Text>
