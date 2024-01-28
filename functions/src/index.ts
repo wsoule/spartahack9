@@ -3,6 +3,7 @@ import { app } from '@/firebaseConfig';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { analyzeImage } from '../visionApi';
 
+
 // Your web app's Firebase configuration
 const storage = getStorage(app);
 

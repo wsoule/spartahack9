@@ -61,15 +61,7 @@ export default function ModalScreen() {
   const savePhoto = async () => {
     if (!imageUri) return;
     try {
-      // const { status } = await MediaLibrary.requestPermissionsAsync();
-      // if (status !== 'granted') {
-      //   Alert.alert('Permission to access gallery is required!');
-      //   return;
-      // }
-      // await MediaLibrary.createAssetAsync(imageUri);
-      // Alert.alert('Photo saved successfully!');
-      // setImageUri(null);
-      console.log("uploading image", imageUri);
+      console.log('uploading image: ', imageUri);
       uploadImage(imageUri);
       setImageUri(null);
     } catch (error) {
