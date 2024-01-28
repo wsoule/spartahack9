@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   TouchableOpacity,
@@ -10,14 +10,10 @@ import {
 import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import { uploadImage } from "@/functions/src";
-import { API_URL } from "../_layout";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function CameraModal() {
+export default function ModalScreen() {
   const [imageUri, setImageUri] = useState<string | null>(null);
   const cameraRef = useRef<Camera | null>(null);
-  const [thing, setThing] = useState<any>(null);
-  const [userId, setUserId] = useState<any>(null);
   const [type, setType] = useState(CameraType.back);
 
   const requestPermissions = async () => {
@@ -65,33 +61,13 @@ export default function CameraModal() {
   const savePhoto = async () => {
     if (!imageUri) return;
     try {
-      setThing(await uploadImage(imageUri));
-      setUserId(await AsyncStorage.getItem("Id"));
-      
+      uploadImage(imageUri);
       setImageUri(null);
     } catch (error) {
-      console.log('error = ', error);
-      Alert.alert(error as string);
+      Alert.alert("Error saving photo");
     }
   };
-  useEffect(() => {
-    if (!thing || !userId) return;
-    fetch(`${API_URL}/create-item`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          imageUrl: thing.url,
-          name: "test",
-          description: "test description",
-          status: 'recycled',
-          userId: userId,
-          tags: thing.tags
-          })})
-          .then((response) => response.json())
-          .catch((error) => console.log(error));
-        }, [thing, userId]);
+
   const handleDelete = () => setImageUri(null);
 
   return (
