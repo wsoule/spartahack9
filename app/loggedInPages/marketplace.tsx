@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, FlatList } from 'react-native';
+import { View, Text, Image, FlatList, ScrollView } from 'react-native';
 import { User } from './leaderboard';
 import { API_URL } from '../_layout';
-import { Button } from 'react-native-paper';
+import { Button, Card, Chip } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export type Item = {
@@ -57,18 +57,46 @@ const Marketplace = () => {
   }
 
   const renderItem = ({ item }: { item: Item }): JSX.Element => (
-    <View style={styles.card}>
-      <Text style={styles.userName}>{item.seller?.username}</Text>
-      <Image source={{ uri: item.imageUrl}} style={styles.itemImage} />
-      <Text style={{ ...styles.itemName, fontWeight: 'bold' }}>{item.name}</Text>
-      <Text style={styles.itemDescription}>{item.description}</Text>
-      <Text style={styles.zipCode}>{item.seller?.location}</Text>
-      <Button mode="contained" onPress={() => {
-        requestItem(item);
-      }}>
-        Request Item
-        </Button>
-    </View>
+    <>
+<Card style={{ margin: 20 }}>
+  <Card.Title title={item.name} subtitle={item.description} />
+  <Card.Cover source={{ uri: item.imageUrl }} />
+  <Card.Content>
+    <Text style={{ ...styles.zipCode, fontWeight: 'bold' }}>{item.seller?.location}</Text>
+    
+    {/* Use ScrollView with horizontal scrolling for the Chips */}
+    <ScrollView horizontal style={{ flexDirection: 'row', marginTop: 5 }}>
+      {/* Map over item.tags and render a Chip for each tag */}
+      {item.tags.map((tag, index) => (
+        <Chip key={index} style={{ margin: 5 }}>
+          {tag}
+        </Chip>
+      ))}
+    </ScrollView>
+  </Card.Content>
+  
+  {/* Action buttons */}
+  <Card.Actions>
+    <Button mode="contained" onPress={() => requestItem(item)}>
+      Request Item
+    </Button>
+  </Card.Actions>
+</Card>
+
+   
+    </>
+    // <View style={styles.card}>
+    //   <Text style={styles.userName}>{item.seller?.username}</Text>
+    //   <Image source={{ uri: item.imageUrl}} style={styles.itemImage} />
+    //   <Text style={{ ...styles.itemName, fontWeight: 'bold' }}>{item.name}</Text>
+    //   <Text style={styles.itemDescription}>{item.description}</Text>
+    //   <Text style={styles.zipCode}>{item.seller?.location}</Text>
+    //   <Button mode="contained" onPress={() => {
+    //     requestItem(item);
+    //   }}>
+    //     Request Item
+    //     </Button>
+    // </View>
   );
 
   return (

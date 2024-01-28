@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   TouchableOpacity,
@@ -10,10 +10,14 @@ import {
 import { Camera, CameraType } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import { uploadImage } from "@/functions/src";
+import { API_URL } from "../_layout";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function ModalScreen() {
+export default function CameraModal() {
   const [imageUri, setImageUri] = useState<string | null>(null);
   const cameraRef = useRef<Camera | null>(null);
+  const [thing, setThing] = useState<any>(null);
+  const [userId, setUserId] = useState<any>(null);
   const [type, setType] = useState(CameraType.back);
 
   const requestPermissions = async () => {
@@ -21,7 +25,6 @@ export default function ModalScreen() {
       await Camera.requestCameraPermissionsAsync();
     const { status: mediaLibraryStatus } =
       await MediaLibrary.requestPermissionsAsync();
-
     if (cameraStatus !== "granted") {
       Alert.alert(
         "Permission required",
@@ -29,7 +32,6 @@ export default function ModalScreen() {
       );
       return false;
     }
-
     if (mediaLibraryStatus !== "granted") {
       Alert.alert(
         "Permission required",
@@ -37,37 +39,51 @@ export default function ModalScreen() {
       );
       return false;
     }
-
     return true;
   };
-
   const takePicture = async () => {
     const hasPermission = requestPermissions();
-
     if (!hasPermission) return;
-
     if (cameraRef.current) {
       const photo = await cameraRef.current.takePictureAsync();
       setImageUri(photo.uri);
     }
   };
-
   const toggleCameraType = () => {
     setType((currentType) =>
       currentType === CameraType.back ? CameraType.front : CameraType.back
     );
   };
-
   const savePhoto = async () => {
     if (!imageUri) return;
     try {
-      uploadImage(imageUri);
+      setThing(await uploadImage(imageUri));
+      setUserId(await AsyncStorage.getItem("Id"));
+
       setImageUri(null);
     } catch (error) {
-      Alert.alert("Error saving photo");
+      console.log('error = ', error);
+      Alert.alert(error as string);
     }
   };
-
+  useEffect(() => {
+    if (!thing || !userId) return;
+    fetch(`${API_URL}/create-item`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          imageUrl: thing.url,
+          name: "test",
+          description: "test description",
+          status: 'recycled',
+          userId: userId,
+          tags: thing.tags
+          })})
+          .then((response) => response.json())
+          .catch((error) => console.log(error));
+        }, [thing, userId]);
   const handleDelete = () => setImageUri(null);
 
   return (
@@ -110,7 +126,6 @@ export default function ModalScreen() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   camera: {
     height: "75%",
