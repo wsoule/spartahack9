@@ -36,11 +36,12 @@ export default function RootLayout() {
 
   // Authentication listener
   useEffect(() => {
-    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user: any) => {
       if (user) {
         // User is signed in
         // Handle user state
       } else {
+
         // User is signed out
         // Handle sign out
       }
