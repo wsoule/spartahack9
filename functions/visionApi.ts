@@ -32,6 +32,7 @@ export const analyzeImage = async (imageUri: string): Promise<any> => {
       };
 
       const apiResponse = await axios.post(apiURL, requestData, config);
+      console.log(apiResponse);
       return(apiResponse.data.responses[0].labelAnnotations);
     } catch (error) {
       console.error("Error analyzing image: ", error);
