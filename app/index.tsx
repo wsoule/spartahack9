@@ -6,10 +6,10 @@ import { useContext } from 'react';
 
 export default function Page() {
   const { isLoggedIn } = useContext(AuthContext);
-  
+
   return (
   <View>
-    {(true) ? <HomePage /> : <WelcomePage />}
+    {(isLoggedIn) ? <HomePage /> : <WelcomePage />}
   </View>
   );
 }
