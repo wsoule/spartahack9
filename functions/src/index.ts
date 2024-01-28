@@ -1,11 +1,7 @@
 // Import the functions you need from the SDKs you need
-import * as FileSystem from 'expo-file-system';
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
-import * as vision from '@google-cloud/vision';
-import * as ImagePicker from 'expo-image-picker';
-import * as blobUtil from 'blob-util';
-//import { launchImageLibrary } from 'react-native-image-picker';
+//import * as vision from '@google-cloud/vision';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {

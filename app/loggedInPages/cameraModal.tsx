@@ -1,10 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { View, TouchableOpacity, Text, Image, StyleSheet, Alert } from 'react-native';
 import { Camera, CameraType } from 'expo-camera';
-import * as MediaLibrary from 'expo-media-library';
 import { uploadImage } from '@/functions/src';
 
-export default function ModalScreen() {
+export default function CameraModal() {
   const [imageUri, setImageUri] = useState<string | null>(null);
   const cameraRef = useRef<Camera | null>(null);
   const [type, setType] = useState(CameraType.back);
@@ -25,7 +24,15 @@ export default function ModalScreen() {
   const savePhoto = async () => {
     if (!imageUri) return;
     try {
-      console.log('uploading image: ', imageUri);
+      // const { status } = await MediaLibrary.requestPermissionsAsync();
+      // if (status !== 'granted') {
+      //   Alert.alert('Permission to access gallery is required!');
+      //   return;
+      // }
+      // await MediaLibrary.createAssetAsync(imageUri);
+      // Alert.alert('Photo saved successfully!');
+      // setImageUri(null);
+      console.log('uploading image', imageUri);
       uploadImage(imageUri);
       setImageUri(null);
     } catch (error) {
