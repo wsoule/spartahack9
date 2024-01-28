@@ -27,12 +27,12 @@
       "package": "com.anonymous.WasteWell"
     },
     "web": {
-      "output": "static",
+      "output": "server",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
       "expo-router",
-      "expo-camera",
+      "expo-camera"
     ],
     "experiments": {
       "typedRoutes": true

@@ -15,7 +15,7 @@ export const imageTagger = functions.storage
   .object()
   .onMetadataUpdate(async event => {
     // File data
-    const object = event.metadata;
+    const object = event.metadata ?? {};
     const filePath = object.name;
 
     // Location of file saved in bucket

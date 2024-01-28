@@ -65,4 +65,13 @@ const styles = StyleSheet.create({
     height: 1,
     width: "80%",
   },
+  button: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingVertical: 20,
+    backgroundColor: 'green',
+    padding: 10,
+    borderRadius: 20,
+    margin: 20, 
+  },
 });
