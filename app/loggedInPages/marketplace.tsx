@@ -1,43 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, FlatList } from 'react-native';
+import { User } from './leaderboard';
+
+export type Item = {
+  _id: string;
+  name: string;
+  count: number;
+  seller: User;
+  status: 'recycled' | 'sold' | 'trash';
+  imageUrl: string;
+}
 
 const Marketplace = () => {
-  const data = [
-    {
-      id: '1',
-      user: 'John Doe',
-      itemImage: require('@/assets/images/recycle.png'),
-      itemName: 'Item 1',
-      itemDescription: 'This is item 1 description.',
-      zipCode: '12345',
-    },
-    {
-      id: '2',
-      user: 'Jane Smith',
-      itemImage: require('@/assets/images/recycle.png'),
-      itemName: 'Item 2',
-      itemDescription: 'This is item 2 description.',
-      zipCode: '67890',
-    },
-    // Add more items as needed
-  ];
+  const [marketData, setMarketData] = useState<Item[]>([]); 
+  useEffect(() => {
+    fetch(`${process.env.API_URL}/list`)
+      .then(response => response.json())
+      .then(data => {
+        setMarketData(data)
+      });
+  });
+  // const data = [
+  //   {
+  //     id: '1',
+  //     user: 'John Doe',
+  //     itemImage: require('@/assets/images/recycle.png'),
+  //     itemName: 'Item 1',
+  //     itemDescription: 'This is item 1 description.',
+  //     zipCode: '12345',
+  //   },
+  //   {
+  //     id: '2',
+  //     user: 'Jane Smith',
+  //     itemImage: require('@/assets/images/recycle.png'),
+  //     itemName: 'Item 2',
+  //     itemDescription: 'This is item 2 description.',
+  //     zipCode: '67890',
+  //   },
+  //   // Add more items as needed
+  // ];
 
-  const renderItem = ({ item }: { item: any }) => (
+  const renderItem = ({ item }: { item: Item }) => (
     <View style={styles.card}>
-      <Text style={styles.userName}>{item.user}</Text>
-      <Image source={item.itemImage} style={styles.itemImage} />
-      <Text style={{ ...styles.itemName, fontWeight: 'bold' }}>{item.itemName}</Text>
-      <Text style={styles.itemDescription}>{item.itemDescription}</Text>
-      <Text style={styles.zipCode}>{item.zipCode}</Text>
+      <Text style={styles.userName}>{item.seller.username}</Text>
+      {/* <Image source={require(item.imageUrl)} style={styles.itemImage} /> */}
+      <Text style={{ ...styles.itemName, fontWeight: 'bold' }}>{item.name}</Text>
+      {/* <Text style={styles.itemDescription}>{item.itemDescription}</Text> */}
+      <Text style={styles.zipCode}>{item.seller.location}</Text>
     </View>
   );
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={data}
+        data={marketData}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item._id}
       />
     </View>
   );

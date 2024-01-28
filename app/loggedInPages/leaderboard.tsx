@@ -1,49 +1,47 @@
-import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useEffect, useState } from 'react';
 import { FlatList, Text } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-
-const tempUsers = [
-  {
-    id: 1,
-    name: 'John Doe',
-    score: 100,
-  },
-  {
-    id: 2,
-    name: 'Jane Doe',
-    score: 200,
-  },
-  {
-    id: 3,
-    name: 'John Smith',
-    score: 300,
-  },
-];
-
-interface User {
-  id: number;
-  name: string;
-  score: number;
-}
-
-interface LeaderboardProps {
-  users: User[];
-}
-
-const Leaderboard: React.FC<LeaderboardProps> = ({ users }) => {
-  users = tempUsers;
-  const username = 'John Doe'; // Replace with your own name
+export type User ={
+    _id: string;
+    username: string;
+    email: string;
+    friends: string[]; 
+    recycled: number;
+    sold: number;
+    trash: number;
+    points: number;
+    badges: string[]; 
+    takenItems: string[];
+    location: string;
+    givenItems: string[]; 
+    selling: number;
+    sellingItems: string[]; 
+    items: string[]; 
+    __v: number;
+  };
+  
+const Leaderboard: React.FC = () => {
+  const [users, setUsers] = useState<User[]>([]);
+  useEffect(() => {
+    fetch(`${process.env.API_URL}/leaderboard`)
+      .then(response => response.json())
+      .then(data => {
+        data.id = data._id;
+        setUsers(data)
+      });
+  },[]);
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Leaderboard</Text>
       <FlatList
         data={users}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={item => item._id}
         renderItem={({ item, index }) => (
           <View style={styles.row}>
             <Text style={styles.cell}>{index + 1}</Text>
-            <Text style={styles.cell}>{item.name}</Text>
-            <Text style={styles.cell}>{item.score}</Text>
+            <Text style={styles.cell}>{item.username}</Text>
+            <Text style={styles.cell}>{item.points}</Text>
           </View>
         )}
         ListHeaderComponent={() => (
