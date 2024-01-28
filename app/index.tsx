@@ -7,5 +7,9 @@ import { useContext } from "react";
 export default function Page() {
   const { isLoggedIn } = useContext(AuthContext);
 
-  return <View>{isLoggedIn ? <HomePage /> : <WelcomePage />}</View>;
+  return (
+  <View>
+    {(true) ? <HomePage /> : <WelcomePage />}
+  </View>
+  );
 }
