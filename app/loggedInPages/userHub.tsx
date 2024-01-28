@@ -4,14 +4,14 @@ import { router } from 'expo-router';
 
 const UserHub: React.FC = () => {
 
-  const username = ''
-  const points =
+  const username = '';
+  const points = 12;
 
   return (
     <View style={styles.container}>
       <Text style={styles.username}>Username: {username}</Text>
       <Text style={styles.points}>Points Earned: {points}</Text>
-      <TouchableOpacity onPress={() => router.navigate('/loggedInPaged/friends')}>
+      <TouchableOpacity style={styles.friendsBtn} onPress={() => router.navigate('/loggedInPaged/friends')}>
         <Text style={styles.points}>Friends</Text>
       </TouchableOpacity>
     </View>
