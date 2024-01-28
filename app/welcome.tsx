@@ -21,14 +21,11 @@ const WelcomePage: React.FC = () => {
           <Text style={styles.buttonText}>Join Now</Text>
         </TouchableOpacity>
       </Link>
-      <TouchableOpacity
-      style={styles.loginButton}
-        onPress={() => {
-          registerUser('Wsoule@doodoo.fart', 'PoopooPeepee');
-        }}
-      >
-        <Text style={styles.buttonText}>Sign In</Text>
-      </TouchableOpacity>
+      <Link href={'./signupForm'} asChild>
+        <TouchableOpacity style={styles.loginButton}>
+          <Text style={styles.buttonText}>Sign In</Text>
+        </TouchableOpacity>
+      </Link>
     </View>
     </SafeAreaView>
 
