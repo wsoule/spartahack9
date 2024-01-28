@@ -52,7 +52,6 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-  console.log('Here');
   return (
     <PaperProvider  theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
