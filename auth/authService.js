@@ -1,5 +1,6 @@
 import { auth } from '../firebaseConfig';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ip = 'http://35.21.206.251:3000';
 
@@ -13,15 +14,12 @@ export const registerUser = async (email, password, username, zipcode) => {
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({ email, username, location: zipcode }),
       })
-      .then(res => {
-        return res.json();
-      })
-      .then((res) => {
-        localStorage.setItem('Id', res._id);
-        localStorage.setItem('username', res.username);
-        alert(`Registered user: ${user.username}`);
-        return true;
-      });
+      .then(async (res) => {
+        const responseData = await res.json();
+        await AsyncStorage.setItem('Id', responseData._id);
+        await AsyncStorage.setItem('username', responseData.username);
+        });
+      alert(`Registered user: ${user.username}`);
     })
     .catch((error) => {
       alert(`Register user failed ${error.message}`);
@@ -34,14 +32,18 @@ export const loginUser = async (email, password) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     
-    fetch(`${ip}/login-user`, {
+    fetch(`${ip}/login`, {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
       body: JSON.stringify({ email }),
     })
-      .then(res => {
-        alert(res.json());
-        return res.json();
+    .then(async (res) => {
+      const responseData = await res.json();
+      // Store user data in AsyncStorage
+      await AsyncStorage.setItem('Id', responseData._id);
+      await AsyncStorage.setItem('username', responseData.username);
+      }).catch((error) => {
+        alert(`Login failed ${error.message}`);
       });
 
     alert(`User logged in successfully`);
@@ -55,6 +57,8 @@ export const loginUser = async (email, password) => {
 export const logoutUser = async () => {
   try {
     await signOut(auth);
+    await AsyncStorage.removeItem('Id');
+    await AsyncStorage.removeItem('username');
     alert('User logged out successfully');
     return true;
   } catch (error) {
