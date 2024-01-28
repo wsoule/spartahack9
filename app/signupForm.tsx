@@ -76,6 +76,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'gray',
     borderRadius: 5,
+    color: 'white', // Set the text color here
+    backgroundColor: 'black', // Optional: change the background color if needed
   },
   errorText: {
     marginTop: 10,

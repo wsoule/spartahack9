@@ -17,13 +17,13 @@ const WelcomePage: React.FC = () => {
         <Image style={styles.image} source={require('@/assets/images/recycle.png')}/>
       </View>
       <Link href={'/loginForm'} asChild>
-        <TouchableOpacity style={styles.signUpButton}>
-          <Text style={styles.buttonText}>Join Now</Text>
+        <TouchableOpacity style={styles.loginButton}>
+          <Text style={styles.buttonText}>Sign In</Text>
         </TouchableOpacity>
       </Link>
       <Link href={'./signupForm'} asChild>
-        <TouchableOpacity style={styles.loginButton}>
-          <Text style={styles.buttonText}>Sign In</Text>
+        <TouchableOpacity style={styles.signUpButton}>
+          <Text style={styles.buttonText}>Join Now</Text>
         </TouchableOpacity>
       </Link>
     </View>
