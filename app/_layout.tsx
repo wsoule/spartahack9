@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect} from "react";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {
   DarkTheme,
@@ -8,10 +8,12 @@ import {
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
 
 import { useColorScheme } from "@/components/useColorScheme";
 import { PaperProvider } from "react-native-paper";
+
+// Authentication
+import firebase from '../firebaseConfig'
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -31,6 +33,21 @@ export default function RootLayout() {
     SpaceMono: require("@/assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
+
+  // Authentication listener
+  useEffect(() => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        // User is signed in
+        // Handle user state
+      } else {
+        // User is signed out
+        // Handle sign out
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup subscription on unmount
+  }, []);
 
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
