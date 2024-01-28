@@ -1,6 +1,6 @@
 import { registerUser } from '@/auth';
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import { View, TextInput, TouchableWithoutFeedbackComponent, Keyboard, Button, StyleSheet, Text } from 'react-native';
 
 interface SignUpFormProps {
   onSignUp: (email: string, password: string, username: string, zipCode: string) => void;
@@ -57,6 +57,7 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
         value={zipCode}
         onChangeText={setZipCode}
         keyboardType="numeric"
+        onBlur={Keyboard.dismiss}
       />
       <Button title="Sign Up" onPress={handleSignUp} />
     </View>
@@ -83,6 +84,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     color: 'red',
   },
+
 });
 
 export default SignUpForm;
