@@ -4,8 +4,6 @@ import { Alert, Button, Text, View, StyleSheet, Image, TouchableOpacity } from '
 import { registerUser } from '@/auth';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { sendDataToServer } from './utils/api';
-import { registerUser } from '@/auth';
-import { Link } from 'expo-router';
 
 const WelcomePage: React.FC = () => {
   return (
