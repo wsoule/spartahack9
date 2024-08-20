@@ -6,7 +6,7 @@ export type Data = {
 
 export const sendDataToServer = async (data: Data) => {
   try {
-    const response = await fetch('http://35.21.206.251:3000/submit-data', {
+    const response = await fetch('http://68.84.188.32:3000/submit-data', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
